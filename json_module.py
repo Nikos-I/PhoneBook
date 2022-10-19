@@ -2,7 +2,7 @@ import json
 
 
 def imp_json(filename):
-    with open(f'{filename}.json', 'r') as f:
+    with open(f'{filename}.json', 'r', encoding='utf-8') as f:
         buf_list = json.load(f)
         res_list = []
         for elem in buf_list:
@@ -11,5 +11,5 @@ def imp_json(filename):
 
 
 def exp_json(data, filename):
-    with open(f'{filename}.json', 'w') as f:
+    with open(f'{filename}.json', 'w', encoding='utf-8') as f:
         json.dump(data, f)
