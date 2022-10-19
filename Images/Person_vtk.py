@@ -81,7 +81,7 @@ class App:
         btn_del_cont["justify"] = "center"
         btn_del_cont["text"] = "Удалить контакт"
         btn_del_cont.place(x=470,y=440,width=120,height=25)
-        btn_del_cont["command"] = self.tn_del_cont_command
+        btn_del_cont["command"] = self.btn_del_cont_command
 
         # GMessage_847=tk.Message(root)
         # ft = tkFont.Font(family='Serif',size=10)
@@ -180,10 +180,11 @@ class App:
 
 
     def lst_person_selected(self, event):
-        sel = list(list_person.curselection())
-        print(sel)
+        
+        select = list(self.list_person.curselection())
+        print(select)
 
-    def tn_del_cont_command(self):
+    def btn_del_cont_command(self):
         print("command")
 
 
