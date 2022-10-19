@@ -20,15 +20,16 @@ print(f'list_types {list_types}')
 
 cur.execute(
     "SELECT * FROM persons p LEFT JOIN phones ph ON p.id_person = p.id_person join types t on t.id_type=ph.id_type;")
-print(f'list_full {cur.fetchall()}')
+list_full = cur.fetchall()
+print(f'list_full {list_full}')
 
 cur.close()
 conn.close()
 
-print(f'Тестовые данные: {list_types}')
+print(f'Тестовые данные: {list_full}')
 # экспорты
-json_module.exp_json(list_types, 'export')
-csv_module.exp_csv(list_types, 'export')
+json_module.exp_json(list_full, 'export')
+csv_module.exp_csv(list_full, 'export')
 
 # импорты
 imp_test_csv = csv_module.imp_csv('export')
