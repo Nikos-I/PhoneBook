@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import sqlite3
 import functools 
-import operator 
+import operator
 
 
 conn = sqlite3.connect('db\phone_book.db')
@@ -13,20 +13,27 @@ list_person = functools.reduce(operator.add,(cur.fetchall()))
 print(f'list_person {list_person}')
 
 root = Tk()
-root.title("METANIT.COM")
-root.geometry("400x500")
+root.title("Телефонный справочник")
+root.geometry("800x600")
 
-# list_person = ["1. Иванов П.С.", "2. Петров И.С.", "3. Сидоров П.И."]
 person_var = Variable(value=list_person)
-
 lbox_person = Listbox(listvariable=person_var, height=20, width=30)
+lbox_person.pack(anchor=NW, padx=10, pady=10, side=LEFT)
 
-lbox_person.pack(anchor=NW, padx=5, pady=5)
-# lbox_person.pack(anchor=NW, fill=X, padx=5, pady=5)
+frame1 = ttk.Frame(borderwidth=5, relief=RIDGE, height=200, width=400)
 
+btn_add = Button(text="Добавить контакт")
+
+
+btn_del = Button(frame1, text="Удалить")
+btn_del.pack(padx=10, pady=10, side=TOP)
+
+btn_save = Button(frame1, text="Сохранить")
+btn_del.pack(padx=10, pady=10, side=TOP)
+
+frame1.pack(padx=10, pady=10, side=LEFT)
+btn_add.pack(anchor=NW, padx=10, pady=10, side=LEFT)
+# anchor=NW, 
 root.mainloop()
 
-
-# SELECT (lastname + " " + substr(firstname, 1,1) + "." + substr(firstname, 1,1) + ".") as title
-#       FROM persons p
 conn.close
