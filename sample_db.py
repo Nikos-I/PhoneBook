@@ -2,6 +2,9 @@ import sqlite3
 import json_module
 import csv_module
 import txt_module
+import types_func
+import persons_func
+import phones_func
 
 conn = sqlite3.connect('db\phone_book.db')
 
@@ -26,6 +29,34 @@ print(f'list_full {list_full}')
 
 cur.close()
 conn.close()
+
+exit()
+
+phones_func.phones_func_create(list_phones, list_person, list_types)
+print(list_phones)
+phones_func.phones_func_delete(list_phones, list_person, list_types)
+print(list_phones)
+phones_func.phones_func_modify(list_phones, list_person, list_types)
+print(list_phones)
+
+exit()
+
+persons_func.persons_func_create(list_person)
+print(list_person)
+persons_func.persons_func_delete(list_person)
+print(list_person)
+persons_func.persons_func_modify(list_person)
+print(list_person)
+
+exit()
+types_func.types_func_create(list_types)
+print(list_types)
+types_func.types_func_delete(list_types)
+print(list_types)
+types_func.types_func_modify(list_types)
+print(list_types)
+
+exit()
 
 print(f'Тестовые данные: {list_full}')
 
