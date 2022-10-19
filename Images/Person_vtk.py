@@ -1,8 +1,24 @@
 import tkinter as tk
 import tkinter.font as tkFont
+import sqlite3
+import functools 
+import operator
+
 
 class App:
     def __init__(self, root):
+        
+        global conn
+        global cur
+        global list_person
+        
+        
+        conn = sqlite3.connect('d:/GDisk/GeekBraims/Python/PythonSeminars/Seminar7/PhoneBook/db/phone_book.db')
+        cur = conn.cursor()
+        cur.execute("select title from v_person_short;")
+        list_person = functools.reduce(operator.add,(cur.fetchall()))
+                
+        
         #setting title
         root.title("Телефонный справочник")
         #setting window size
@@ -28,7 +44,13 @@ class App:
         ft = tkFont.Font(family='Serif',size=10)
         lst_person["font"] = ft
         lst_person["fg"] = "#333333"
-        lst_person["justify"] = "center"
+        lst_person["justify"] = "left"
+        person_var = tk.Variable(value=list_person)
+        lst_person["listvariable"] = person_var
+        lst_person["selectmode"] = tk.SINGLE
+        lst_person.bind("<<ListboxSelect>>", self.lst_person_selected)
+
+
         lst_person.place(x=30,y=40,width=219,height=386)
 
         btn_add_cont=tk.Button(root)
@@ -39,7 +61,7 @@ class App:
         btn_add_cont["justify"] = "center"
         btn_add_cont["text"] = "Добавить контакт"
         btn_add_cont.place(x=80,y=440,width=120,height=30)
-        btn_add_cont["command"] = self.GButton_727_command
+        btn_add_cont["command"] = self.btn_add_cont_command
 
         btn_save_cont=tk.Button(root)
         btn_save_cont["bg"] = "#f0f0f0"
@@ -49,7 +71,7 @@ class App:
         btn_save_cont["justify"] = "center"
         btn_save_cont["text"] = "Сохранить контакт"
         btn_save_cont.place(x=260,y=440,width=120,height=25)
-        btn_save_cont["command"] = self.GButton_144_command
+        btn_save_cont["command"] = self.btn_save_con_command
 
         btn_del_cont=tk.Button(root)
         btn_del_cont["bg"] = "#f0f0f0"
@@ -59,7 +81,7 @@ class App:
         btn_del_cont["justify"] = "center"
         btn_del_cont["text"] = "Удалить контакт"
         btn_del_cont.place(x=470,y=440,width=120,height=25)
-        btn_del_cont["command"] = self.GButton_255_command
+        btn_del_cont["command"] = self.tn_del_cont_command
 
         # GMessage_847=tk.Message(root)
         # ft = tkFont.Font(family='Serif',size=10)
@@ -144,7 +166,7 @@ class App:
         btn_del_phone["justify"] = "center"
         btn_del_phone["text"] = "Удалить"
         btn_del_phone.place(x=360,y=340,width=70,height=25)
-        btn_del_phone["command"] = self.GButton_13_command
+        btn_del_phone["command"] = self.btn_del_phone_command
 
         btn_save_phone=tk.Button(root)
         btn_save_phone["bg"] = "#f0f0f0"
@@ -154,28 +176,40 @@ class App:
         btn_save_phone["justify"] = "center"
         btn_save_phone["text"] = "Сохранить"
         btn_save_phone.place(x=490,y=340,width=70,height=25)
-        btn_save_phone["command"] = self.GButton_318_command
+        btn_save_phone["command"] = self.btn_save_phone_command
 
-    def GButton_255_command(self):
+
+    def lst_person_selected(self, event):
+        sel = list(list_person.curselection())
+        print(sel)
+
+    def tn_del_cont_command(self):
         print("command")
 
 
-    def GButton_144_command(self):
+    def btn_save_con_command(self):
         print("command")
 
 
-    def GButton_727_command(self):
+    def btn_add_cont_command(self):
         print("command")
 
 
-    def GButton_13_command(self):
+    def btn_del_phone_command(self):
         print("command")
 
 
-    def GButton_318_command(self):
+    def btn_save_phone_command(self):
         print("command")
+
+
 
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
-    root.mainloop()
+    
+
+
+
+
+root.mainloop()
