@@ -11,6 +11,13 @@ class App:
         global cur
         global list_person
 
+        name_var = tk.StringVar()
+
+        def submit(event):
+            name = name_var.get()
+            print("The name is : " + name)
+            name_var.set(name)
+
         conn = sqlite3.connect('../db/phone_book.db')
         cur = conn.cursor()
         cur.execute("select title from v_person_short;")
@@ -57,8 +64,9 @@ class App:
                                 text="Фамилия")
         lbl_lastname.place(x=260, y=80, width=70, height=25)
 
-        ent_lastname = tk.Entry(root, borderwidth="2px", font=ft, fg="#333333", justify="center")
+        ent_lastname = tk.Entry(root, borderwidth="2px", font=ft, fg="#333333", justify="center", textvariable=name_var)
         ent_lastname.place(x=340, y=80, width=250, height=30)
+        ent_lastname.bind("<Return>", submit)
 
         lbl_firstname = tk.Label(root, font=ft, fg="#333333", justify="right",
                                  text="Имя")
