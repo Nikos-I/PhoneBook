@@ -21,8 +21,12 @@ def btn_del_cont_command():
 
 
 def btn_save_con_command():
+    print(ent_lastname.get())
+    print(ent_firstname.get())
+    print(ent_patronymic.get())
     print("command")
-
+    cur.execute(f"select lastname, firstname, patronymic from persons where id_person = {pk_sel};")    
+    print(f'UPDATE persons set lastname="{ent_lastname.get()}", firstname="{ent_firstname.get()}", patronymic="{ent_patronymic.get()}" WHERE id_person = {pk_sel}') 
 
 def btn_add_cont_command():
     print("command")
