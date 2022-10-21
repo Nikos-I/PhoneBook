@@ -96,13 +96,23 @@ def get_list_phones():
     phones_var.set(list_phones)
 
 
+def btn_import_command():
+    print("command")
+
+
+def btn_export_command():
+    print("command")
+    
+
+
+
 pk_sel = 0
 # sel_str = ''
 list_person = []
 list_phones = []
 
 # Установка соединения с БД
-conn = sqlite3.connect('../db/phone_book.db')
+conn = sqlite3.connect('d:/GDisk/GeekBraims/Python/PythonSeminars/Seminar7/PhoneBook/db/phone_book.db')
 cur = conn.cursor()
 # get_list_person()
 # cur.execute("select title from v_person_short;")
@@ -158,7 +168,7 @@ btn_add_cont["font"] = ft
 btn_add_cont["fg"] = "#000000"
 btn_add_cont["justify"] = "center"
 btn_add_cont["text"] = "Добавить контакт"
-btn_add_cont.place(x=80, y=440, width=120, height=30)
+btn_add_cont.place(x=30, y=440, width=120, height=25)
 btn_add_cont["command"] = btn_add_cont_command
 
 btn_save_cont = tk.Button(root)
@@ -168,8 +178,30 @@ btn_save_cont["font"] = ft
 btn_save_cont["fg"] = "#000000"
 btn_save_cont["justify"] = "center"
 btn_save_cont["text"] = "Сохранить контакт"
-btn_save_cont.place(x=260, y=440, width=120, height=25)
+btn_save_cont.place(x=160, y=440, width=120, height=25)
 btn_save_cont["command"] = btn_save_con_command
+
+# Кнопка импорта
+btn_import = tk.Button(root)
+btn_import["bg"] = "#f0f0f0"
+ft = tkFont.Font(family='Serif', size=10)
+btn_import["font"] = ft
+btn_import["fg"] = "#000000"
+btn_import["justify"] = "center"
+btn_import["text"] = "Импорт контактов"
+btn_import.place(x=480, y=440, width=120, height=25)
+btn_import["command"] = btn_import_command
+
+# Кнопка экспорта
+btn_export = tk.Button(root)
+btn_export["bg"] = "#f0f0f0"
+ft = tkFont.Font(family='Serif', size=10)
+btn_export["font"] = ft
+btn_export["fg"] = "#000000"
+btn_export["justify"] = "center"
+btn_export["text"] = "Экспорт контактов"
+btn_export.place(x=480, y=400, width=120, height=25)
+btn_export["command"] = btn_export_command
 
 btn_del_cont = tk.Button(root)
 btn_del_cont["bg"] = "#f0f0f0"
@@ -178,7 +210,7 @@ btn_del_cont["font"] = ft
 btn_del_cont["fg"] = "#000000"
 btn_del_cont["justify"] = "center"
 btn_del_cont["text"] = "Удалить контакт"
-btn_del_cont.place(x=470, y=440, width=120, height=25)
+btn_del_cont.place(x=290, y=440, width=120, height=25)
 btn_del_cont["command"] = btn_del_cont_command
 
 lbl_lastname = tk.Label(root)
