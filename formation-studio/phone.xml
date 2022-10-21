@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<tkinter.Frame xmlns:attr="http://www.hoversetformationstudio.com/styles/" xmlns:layout="http://www.hoversetformationstudio.com/layouts/" name="frame_1" attr:borderwidth="3" attr:relief="ridge" attr:highlightthickness="1" attr:layout="place" layout:width="214" layout:height="212" layout:x="30" layout:y="19">
+  <meta major="5" minor="0" name="version"/>
+  <tkinter.StringVar attr:name="ent_phone_value" attr:value=""/>
+  <tkinter.StringVar attr:name="cmb_type_list" attr:value=""/>
+  <tkinter.ttk.Label name="label_1" attr:font="{Segoe UI} 12 {}" attr:text="Тип телефона" layout:width="165" layout:height="25" layout:x="30" layout:y="85" layout:bordermode="outside"/>
+  <tkinter.ttk.Label name="label_1" attr:font="{Segoe UI} 12 {}" attr:text="Номер телефона" layout:width="160" layout:height="25" layout:x="30" layout:y="31" layout:bordermode="outside"/>
+  <tkinter.ttk.Entry name="ent_phone" attr:font="{Segoe UI} 12 {}" attr:cursor="ibeam" layout:width="160" layout:height="25" layout:x="30" layout:y="53" layout:bordermode="outside"/>
+  <tkinter.ttk.Combobox name="cmb_type" attr:font="{Segoe UI} 12 {}" attr:cursor="ibeam" layout:width="160" layout:height="25" layout:x="30" layout:y="108" layout:bordermode="outside">
+    <event sequence="&lt;cmb_type_select&gt;" handler="cmb_type_select" add="True"/>
+  </tkinter.ttk.Combobox>
+  <tkinter.ttk.Button name="btn_add" attr:text="Добавить" layout:width="75" layout:height="25" layout:x="30" layout:y="150" layout:bordermode="outside">
+    <event sequence="&lt;phone_add&gt;" handler="phone_add" add="False"/>
+  </tkinter.ttk.Button>
+  <tkinter.ttk.Button name="btn_cancel" attr:text="Отменить" layout:width="75" layout:height="25" layout:x="114" layout:y="150" layout:bordermode="outside">
+    <event sequence="&lt;cancel_click&gt;" handler="phone_cancel" add="True"/>
+  </tkinter.ttk.Button>
+</tkinter.Frame>

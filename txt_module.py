@@ -1,10 +1,10 @@
 def exp_txt(data, filename):
-    with open(f'{filename}.txt', 'w', encoding='utf-8') as f:
+    with open(f'./export/{filename}.txt', 'w', encoding='utf-8') as f:
         f.writelines([f"{line}**" for line in data])
 
 
 def imp_txt(filename):
-    with open(f'{filename}.txt', 'r', encoding='utf-8') as f:
+    with open(f'./export/{filename}.txt', 'r', encoding='utf-8') as f:
         buf_str = f.read().strip('**')
         buf_list = buf_str.split('**')
         for elem in range(len(buf_list)):

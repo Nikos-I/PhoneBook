@@ -3,6 +3,7 @@ import tkinter.font as tkFont
 import sqlite3
 import functools 
 import operator
+import phone as p
 
 # Обработка события выбора из списка и передача данных в поля ввода
 def lst_person_selected(event):
@@ -64,6 +65,7 @@ def btn_del_phone_command():
 
 
 def btn_save_phone_command():
+    p.add_phone()
     print("command")
 
 # Обновление списка контактов
