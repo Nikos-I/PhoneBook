@@ -18,7 +18,10 @@ def lst_person_selected(event):
     text_ln.set(lastname)
     text_fn.set(firstname)
     text_pn.set(patronymic)
-    cur.execute(f"select phone_number from phones where id_person = {pk_sel};")
+    # cur.execute("SELECT * FROM persons p LEFT JOIN phones ph ON p.id_person = p.id_person join types t on t.id_type=ph.id_type;")
+    cur.execute(f"select id_phone, id_person, id_type, phone_number from phones where id_person = {pk_sel};")
+    # id_phone, id_person, id_type, phone_number = cur.fetchone()
+    # list_phones.append((id_phone, id_person, id_type, phone_number))
     list_phones = functools.reduce(operator.add, (cur.fetchall()))
     phones_var.set(list_phones)
 
