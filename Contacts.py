@@ -1,9 +1,11 @@
+# import imp
 import tkinter as tk
 import tkinter.font as tkFont
 import sqlite3
 import functools 
 import operator
 import phone as p
+import impex
 
 # Обработка события выбора из списка и передача данных в поля ввода
 def lst_person_selected(event):
@@ -26,7 +28,6 @@ def btn_del_cont_command():
     global conn
     
     exec_str = f'DELETE from persons  WHERE id_person = {pk_sel}'
-    print(exec_str)
     cur.execute(exec_str) 
     conn.commit()   
     get_list_person()
@@ -38,7 +39,6 @@ def btn_save_con_command():
     global conn
 
     exec_str = f'UPDATE persons set lastname="{ent_lastname.get()}", firstname="{ent_firstname.get()}", patronymic="{ent_patronymic.get()}" WHERE id_person = {pk_sel}'
-    print(exec_str) 
     cur.execute(exec_str) 
     conn.commit()   
     get_list_person()
@@ -52,14 +52,24 @@ def btn_add_cont_command():
     exec_str = 'SELECT max(id_person)+1 FROM Persons'
     cur.execute(exec_str) 
     new_id = functools.reduce(operator.add,(cur.fetchone()))
-    print(exec_str) 
     exec_str = f'INSERT INTO persons (id_person, lastname, firstname, patronymic) VALUES ({new_id}, "{ent_lastname.get()}", "{ent_firstname.get()}", "{ent_patronymic.get()}")'
-    print(exec_str) 
     cur.execute(exec_str) 
     conn.commit()   
     get_list_person()
     
+def btn_import_command():
+    global conn 
+    global cur 
+    impex.task2_import(conn, cur)
+    get_list_person()
 
+
+def btn_export_command():
+    global conn 
+    global cur 
+    impex.task1_export(conn, cur)
+
+    
 def btn_del_phone_command():
     print("command")
 
@@ -130,35 +140,59 @@ lst_person.bind("<<ListboxSelect>>", lst_person_selected) # Привязка с�
 lst_person.place(x=30,y=40,width=219,height=386)
 
 # Кнопки контактов
-btn_add_cont=tk.Button(root)
+btn_add_cont = tk.Button(root)
 btn_add_cont["bg"] = "#f0f0f0"
-ft = tkFont.Font(family='Serif',size=10)
+ft = tkFont.Font(family='Serif', size=10)
 btn_add_cont["font"] = ft
 btn_add_cont["fg"] = "#000000"
 btn_add_cont["justify"] = "center"
 btn_add_cont["text"] = "Добавить контакт"
-btn_add_cont.place(x=80,y=440,width=120,height=30)
+btn_add_cont.place(x=30, y=440, width=120, height=25)
 btn_add_cont["command"] = btn_add_cont_command
 
-btn_save_cont=tk.Button(root)
+btn_save_cont = tk.Button(root)
 btn_save_cont["bg"] = "#f0f0f0"
-ft = tkFont.Font(family='Serif',size=10)
+ft = tkFont.Font(family='Serif', size=10)
 btn_save_cont["font"] = ft
 btn_save_cont["fg"] = "#000000"
 btn_save_cont["justify"] = "center"
 btn_save_cont["text"] = "Сохранить контакт"
-btn_save_cont.place(x=260,y=440,width=120,height=25)
+btn_save_cont.place(x=160, y=440, width=120, height=25)
 btn_save_cont["command"] = btn_save_con_command
 
-btn_del_cont=tk.Button(root)
+btn_del_cont = tk.Button(root)
 btn_del_cont["bg"] = "#f0f0f0"
-ft = tkFont.Font(family='Serif',size=10)
+ft = tkFont.Font(family='Serif', size=10)
 btn_del_cont["font"] = ft
 btn_del_cont["fg"] = "#000000"
 btn_del_cont["justify"] = "center"
 btn_del_cont["text"] = "Удалить контакт"
-btn_del_cont.place(x=470,y=440,width=120,height=25)
+btn_del_cont.place(x=290, y=440, width=120, height=25)
 btn_del_cont["command"] = btn_del_cont_command
+
+# Кнопка импорта
+btn_import = tk.Button(root)
+btn_import["bg"] = "#f0f0f0"
+ft = tkFont.Font(family='Serif', size=10)
+btn_import["font"] = ft
+btn_import["fg"] = "#000000"
+btn_import["justify"] = "center"
+btn_import["text"] = "Импорт контактов"
+btn_import.place(x=480, y=440, width=120, height=25)
+btn_import["command"] = btn_import_command
+
+# Кнопка экспорта
+btn_export = tk.Button(root)
+btn_export["bg"] = "#f0f0f0"
+ft = tkFont.Font(family='Serif', size=10)
+btn_export["font"] = ft
+btn_export["fg"] = "#000000"
+btn_export["justify"] = "center"
+btn_export["text"] = "Экспорт контактов"
+btn_export.place(x=480, y=400, width=120, height=25)
+btn_export["command"] = btn_export_command
+
+
 
 lbl_lastname=tk.Label(root)
 ft = tkFont.Font(family='Serif',size=10)
