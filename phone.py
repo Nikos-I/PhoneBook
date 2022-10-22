@@ -18,7 +18,7 @@ def btn_cancel_command():
     end_phone = True
 
 
-def add_phone():
+def add_phone(a_conn, a_cur):
 
     
     w_phone = tk.Tk()
