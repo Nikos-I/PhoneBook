@@ -10,6 +10,8 @@ import csv_module
 import txt_module
 
 
+PATH_PROG = 'd:/GDisk/GeekBraims/Python/PythonSeminars/Seminar7/PhoneBook'
+
 # Обработка события выбора из списка и передача данных в поля ввода
 def lst_person_selected(event):
     global pk_sel
@@ -104,8 +106,7 @@ pk_sel = 0
 # sel_str = ''
 list_person = []
 
-# Установка соединения с БД
-conn = sqlite3.connect('./db/phone_book.db')
+conn = sqlite3.connect(f'{PATH_PROG}/db/phone_book.db')
 cur = conn.cursor()
 # get_list_person()
 # cur.execute("select title from v_person_short;")
