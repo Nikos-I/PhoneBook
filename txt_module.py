@@ -36,15 +36,15 @@ def exp_db(e_conn, e_cur):
 
     e_cur.execute("select id_person, lastname, firstname, patronymic, note from persons;")
     list_person = e_cur.fetchall()
-    print(f'list_person {list_person}')
+    # print(f'list_person {list_person}')
 
     e_cur.execute("select id_phone, id_person, id_type, phone_number from phones;")
     list_phones = e_cur.fetchall()
-    print(f'list_phones {list_phones}')
+    # print(f'list_phones {list_phones}')
 
     e_cur.execute("select id_type, c_type from types;")
     list_types = e_cur.fetchall()
-    print(f'list_types {list_types}')
+    # print(f'list_types {list_types}')
 
     exp_txt(list_person, 'export_person')
     exp_txt(list_phones, 'export_phones')
@@ -61,9 +61,9 @@ def imp_db(e_conn, e_cur):
     imp_test_person = imp_txt('export_person')
     imp_test_phones = imp_txt('export_phones')
     imp_test_types = imp_txt('export_types')
-    print(f'Импорт txt: person {imp_test_person}')
-    print(f'Импорт txt: phones {imp_test_phones}')
-    print(f'Импорт txt: types {imp_test_types}')
+    # print(f'Импорт txt: person {imp_test_person}')
+    # print(f'Импорт txt: phones {imp_test_phones}')
+    # print(f'Импорт txt: types {imp_test_types}')
 
     for i in range(len(imp_test_person)):
         exec_str = f'REPLACE INTO persons (id_person, lastname, firstname, patronymic, note) VALUES ' \
