@@ -1,10 +1,11 @@
+# Головной модуль
+
 # import imp
 import tkinter as tk
 import tkinter.font as tkFont
 import sqlite3
 import functools
 import operator
-import phone as p
 import json_module
 import csv_module
 import txt_module
@@ -17,6 +18,8 @@ def lst_person_selected(event):
     global pk_sel
     global cur
     global conn
+    global list_phone
+    
     lst_person.focus()
     sel_str = lst_person.get((lst_person.curselection())[0])
     pk_sel = int(sel_str[0:sel_str.find(".", 0)])
@@ -25,7 +28,9 @@ def lst_person_selected(event):
     text_ln.set(lastname)
     text_fn.set(firstname)
     text_pn.set(patronymic)
-
+    cur.execute(f"select phone_number from phones where id_person = {pk_sel};")
+    list_phone = cur.fetchall()
+    phone_var.set(list_phone)
 
 # Удаление контакта
 def btn_del_cont_command():
@@ -83,15 +88,6 @@ def btn_export_command():
     txt_module.exp_db(conn, cur)
 
 
-def btn_del_phone_command():
-    print("command")
-
-
-def btn_save_phone_command():
-    p.add_phone()
-    print("command")
-
-
 # Обновление списка контактов
 def get_list_person():
     global cur
@@ -103,13 +99,11 @@ def get_list_person():
 
 
 pk_sel = 0
-# sel_str = ''
 list_person = []
+list_phone = []
 
 conn = sqlite3.connect(f'{PATH_PROG}/db/phone_book.db')
 cur = conn.cursor()
-# get_list_person()
-# cur.execute("select title from v_person_short;")
 
 # Создание головного окла        
 root = tk.Tk()
@@ -278,36 +272,9 @@ ft = tkFont.Font(family='Serif', size=10)
 lst_phone_num["font"] = ft
 lst_phone_num["fg"] = "#333333"
 lst_phone_num["justify"] = "center"
+phone_var = tk.Variable(value=list_phone)
+lst_phone_num["listvariable"] = phone_var
 lst_phone_num.place(x=340, y=230, width=247, height=91)
 
-# Кнопки телефонов
-
-btn_save_phone = tk.Button(root)
-btn_save_phone["bg"] = "#f0f0f0"
-ft = tkFont.Font(family='Serif', size=10)
-btn_save_phone["font"] = ft
-btn_save_phone["fg"] = "#000000"
-btn_save_phone["justify"] = "center"
-btn_save_phone["text"] = "Сохранить"
-btn_save_phone.place(x=490, y=340, width=70, height=25)
-btn_save_phone["command"] = btn_save_phone_command
-
-btn_del_phone = tk.Button(root)
-btn_del_phone["bg"] = "#f0f0f0"
-ft = tkFont.Font(family='Serif', size=10)
-btn_del_phone["font"] = ft
-btn_del_phone["fg"] = "#000000"
-btn_del_phone["justify"] = "center"
-btn_del_phone["text"] = "Удалить"
-btn_del_phone.place(x=360, y=340, width=70, height=25)
-btn_del_phone["command"] = btn_del_phone_command
-
-# GMessage_847=tk.Message(root)
-# ft = tkFont.Font(family='Serif',size=10)
-# GMessage_847["font"] = ft
-# GMessage_847["fg"] = "#333333"
-# GMessage_847["justify"] = "center"
-# GMessage_847["text"] = "Ошибка!"
-# GMessage_847.place(x=200,y=470,width=80,height=25)
 
 root.mainloop()
